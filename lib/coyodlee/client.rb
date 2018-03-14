@@ -546,5 +546,18 @@ module Coyodlee
         }
       )
     end
+
+    def get_access_tokens(fin_app_id:)
+      res = HttpWrapper.get(
+        url: build_url("/user/accessTokens"),
+        params: {
+          appIds: fin_app_id
+        },
+        headers: {
+          authorization: @session.auth_header,
+          accpet: :json
+        }
+      )
+    end
   end
 end
