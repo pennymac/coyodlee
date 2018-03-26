@@ -3,6 +3,7 @@ require 'coyodlee'
 
 require 'minitest/autorun'
 require 'vcr'
+require 'dotenv/load'
 require 'active_support/core_ext/numeric/time'
 
 VCR.configure do |config|
