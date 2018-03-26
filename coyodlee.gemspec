@@ -29,4 +29,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "yard", '~> 0.9'
   spec.add_development_dependency "activesupport", '5.1'
   spec.add_development_dependency "travis", '~> 1.8'
+  spec.add_development_dependency 'dotenv'
+  spec.add_development_dependency 'pry-byebug'
+  spec.add_development_dependency 'byebug'
+  spec.add_development_dependency 'pry'
 end
