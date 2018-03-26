@@ -1,8 +1,11 @@
 require 'json'
+require 'coyodlee/utils'
 
 module Coyodlee
   module Sessions
     class UserSession
+      include Utils
+
       # Holds the user session token
       #
       # @return [String] the user session token
@@ -24,7 +27,7 @@ module Coyodlee
       # @return the underlying response object for the HTTP client you've selected, RestClient by default
       def login(login_name:, password:)
         HttpWrapper.post(
-          url: "#{::Coyodlee.base_url}/user/login",
+          url: build_url("/user/login"),
           body: {
             user: {
               loginName: login_name,
@@ -52,7 +55,7 @@ module Coyodlee
       # @return the underlying response object for the HTTP client you've selected, RestClient by default
       def logout
         HttpWrapper.post(
-          url: "#{::Coyodlee.base_url}/user/logout"
+          url: build_url("/user/logout")
         )
       end
     end
