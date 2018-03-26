@@ -3,6 +3,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/f36b069069540b196fbd/maintainability)](https://codeclimate.com/github/pennymac/coyodlee/maintainability)
 [![Gem Version](https://badge.fury.io/rb/coyodlee.svg)](https://badge.fury.io/rb/coyodlee)
 
+## Status
+
+The software in this repository is in an early alpha state. This repository is currently not accepting pull requests or responding to issues. If there is a bug in the code or a feature you'd like to have, feel free to fork the repository.
+
 ## Setup
 
 In sandbox mode, point the ```base_url``` to ```https://developer.api.yodlee.com/ysl/restserver/v1```.
