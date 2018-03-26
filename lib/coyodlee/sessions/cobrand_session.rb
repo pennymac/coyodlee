@@ -1,8 +1,11 @@
 require 'json'
+require 'coyodlee/utils'
 
 module Coyodlee
   module Sessions
     class CobrandSession
+      include Utils
+
       # Holds the cobrand session token
       #
       # @return [String] the cobrand session token
@@ -18,7 +21,7 @@ module Coyodlee
       # @return the underlying response object for the HTTP client you've selected, RestClient by default
       def login(login_name:, password:)
         HttpWrapper.post(
-          url: "#{::Coyodlee.base_url}/cobrand/login",
+          url: build_url("/cobrand/login"),
           body: {
             cobrand: {
               cobrandLogin: login_name,
@@ -42,7 +45,7 @@ module Coyodlee
       # @return the underlying response object for the HTTP client you've selected, RestClient by default
       def logout
         HttpWrapper.post(
-          url: "#{::Coyodlee.base_url}/cobrand/logout"
+          url: build_url("/cobrand/logout")
         )
       end
     end
