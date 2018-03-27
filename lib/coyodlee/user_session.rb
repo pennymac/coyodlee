@@ -5,7 +5,7 @@ module Coyodlee
     end
 
     def to_s
-      token.empty? ? '' : "userSession=#{token}"
+      @token.empty? ? '' : "userSession=#{@token}"
     end
   end
 end
