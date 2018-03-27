@@ -22,5 +22,10 @@ module Coyodlee
     def build_url(path)
       ::Coyodlee.base_url.to_s + path
     end
+
+    def build_uri(path, query: nil, use_ssl: true)
+      uri_builder = use_ssl ? URI::HTTPS : URI::HTTP
+      uri_builder.build(host: ::Coyodlee.host, path: path, query: query)
+    end
   end
 end

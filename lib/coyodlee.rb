@@ -10,6 +10,12 @@ module Coyodlee
     # The base url Yodlee provides for your cobrand
     # @return [String] The base url Yodlee provides for your cobrand
     attr_accessor :base_url
+    # The name of the Yodlee API host
+    # @return [String] The name of the Yodlee API host
+    attr_accessor :host
+    # The cobrand name
+    # @return [String] The cobrand name
+    attr_accessor :cobrand_name
     # The login of your cobrand
     # @return [String] The login of your cobrand
     attr_accessor :cobrand_login
