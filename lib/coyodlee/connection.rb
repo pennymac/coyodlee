@@ -4,7 +4,7 @@ require_relative 'uri_builder'
 
 module Coyodlee
   class CobrandLoginRequest
-    def initialize(uri_builder:)
+    def initialize(uri_builder:, session_authorization: nil)
       @uri_builder = uri_builder
     end
 
@@ -32,7 +32,9 @@ module Coyodlee
     def execute(klass, params)
       uri_builder = @facade.uri_builder
       http = @facade.http
-      req = klass.new(uri_builder: uri_builder)
+      auth = @facade.session_authorization
+      req = klass.new(uri_builder: uri_builder,
+                      session_authorization: auth)
               .build(params)
       http.request(req)
     end
@@ -41,10 +43,16 @@ module Coyodlee
   class RequestFacade
     attr_reader :http
     attr_reader :uri_builder
+    attr_reader :session_authorization
 
-    def initialize(http:, uri_builder:)
+    def initialize(http:, uri_builder:, session_authorization: nil)
       @http = http
       @uri_builder = uri_builder
+      @session = session_authorization
+    end
+
+    def authorize(session_authorization)
+      @session_authorization = session_authorization
     end
 
     def cobrand_login(login_name:, password:)
