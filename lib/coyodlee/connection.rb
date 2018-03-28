@@ -3,6 +3,29 @@ require 'json'
 require_relative 'uri_builder'
 
 module Coyodlee
+  class UserLoginRequest
+    def initialize(uri_builder:, session_authorization:)
+      @uri_builder = uri_builder
+      @session_authorization = session_authorization
+    end
+
+    def build(login_name:, password:)
+      uri = @uri_builder.build('user/login')
+      Net::HTTP::Post.new(uri).tap do |req|
+        req.body = {
+          user: {
+            loginName: login_name,
+            password: password,
+            locale: 'en_US'
+          }
+        }.to_json
+        req['Content-Type'] = 'application/json'
+        req['Accept'] = 'application/json'
+        req['Authorization'] = @session_authorization.to_s
+      end
+    end
+  end
+
   class CobrandLoginRequest
     def initialize(uri_builder:, session_authorization: nil)
       @uri_builder = uri_builder
@@ -58,6 +81,11 @@ module Coyodlee
     def cobrand_login(login_name:, password:)
       RequestExecutor.new(self)
         .execute(CobrandLoginRequest, login_name: login_name, password: password)
+    end
+
+    def user_login(login_name:, password:)
+      RequestExecutor.new(self)
+        .execute(UserLoginRequest, login_name: login_name, password: password)
     end
   end
 
