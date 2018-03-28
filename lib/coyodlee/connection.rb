@@ -102,7 +102,8 @@ module Coyodlee
 
     def start(&block)
       Net::HTTP.start('developer.api.yodlee.com', use_ssl: true) do |http|
-        yield RequestFacade.new(http: http, uri_builder: @uri_builder)
+        yield RequestFacade.new(http: http,
+                                uri_builder: @uri_builder)
       end
     end
   end
