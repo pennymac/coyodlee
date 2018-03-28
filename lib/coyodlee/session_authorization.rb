@@ -1,10 +1,17 @@
+require_relative 'null_session_token'
+
 module Coyodlee
   class SessionAuthorization
-    attr_writer :cobrand_session_token
-    attr_writer :user_session_token
-
-    def initialize(cobrand_session_token: nil, user_session_token: nil)
+    def initialize(cobrand_session_token: NullSessionToken.new, user_session_token: NullSessionToken.new)
       @cobrand_session_token = cobrand_session_token
+      @user_session_token = user_session_token
+    end
+
+    def authorize_cobrand(cobrand_session_token)
+      @cobrand_session_token = cobrand_session_token
+    end
+
+    def authorize_user(user_session_token)
       @user_session_token = user_session_token
     end
 
