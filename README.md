@@ -13,20 +13,10 @@ In sandbox mode, point the ```base_url``` to ```https://developer.api.yodlee.com
 
 Export the following environment variables:
 
-<table>
-  <tr>
-    <td><strong>Environment Variables</strong></td>
-    <td><strong>Description</td>
-  </tr>
-  <tr>
-    <td>YODLEE_COBRAND_LOGIN</td>
-    <td>The Yodlee cobrand login</td>
-  <tr/>
-  <tr>
-    <td>YODLEE_COBRAND_PASSWORD</td>
-    <td>The Yodlee cobrand password</td>
-  <tr/>
-</table>
+| Environment Variable      | Description                           |
+|---------------------------|---------------------------------------|
+| YODLEE\_COBRAND\_LOGIN    | The login of your assigned cobrand    |
+| YODLEE\_COBRAND\_PASSWORD | The password of your assigned cobrand |
 
 ## Installation
 
@@ -46,7 +36,36 @@ Or install it yourself as:
 
 ## Usage
 
-This API exposes a ```setup``` method:
+The API remains in flux. Here is the current way to interact with Yodlee:
+
+``` ruby
+require 'coyodlee'
+
+Coyodlee.setup do |config|
+  config.host = 'developer.api.yodlee.com'
+  config.cobrand_login = ENV['YODLEE_COBRAND_LOGIN']
+  config.cobrand_password = ENV['YODLEE_COBRAND_PASSWORD']
+end
+
+require 'coyodlee/connection'
+require 'coyodlee/session'
+
+conn = Coyodlee::Connection.create
+
+resp = conn.start do |api|
+  session = Coyodlee::Session.create(api)
+  session.cobrand_login login_name: Coyodlee.cobrand_login,
+                        password: Coyodlee.cobrand_password
+  session.user_login login_name: ENV['YODLEE_USER_1_LOGIN_NAME'],
+                     password: ENV['YODLEE_USER_1_PASSWORD']
+
+  api.get_accounts
+end
+
+puts resp
+```
+
+The old implementation can still be used:
 
 ``` ruby
 require 'coyodlee'
