@@ -9,8 +9,9 @@ module Coyodlee
     end
 
     def to_s
-      [@cobrand_session_token.to_s, @user_session_token.to_s]
-        .reject { |s| s.empty? }
+      [@cobrand_session_token, @user_session_token]
+        .select { |t| t.present? }
+        .map(&:to_s)
         .join(',')
     end
   end
