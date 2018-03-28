@@ -1,11 +1,11 @@
 module Coyodlee
-  class UserSession
+  class CobrandSessionToken
     def initialize(token='')
       @token = token
     end
 
     def to_s
-      @token.empty? ? '' : "userSession=#{@token}"
+      @token.empty? ? '' : "cobSession=#{@token}"
     end
   end
 end
