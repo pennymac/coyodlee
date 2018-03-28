@@ -23,6 +23,8 @@ module Coyodlee
     attr_reader :uri_builder
     attr_reader :session_authorization
 
+    include Requests
+
     def initialize(http:, uri_builder:, session_authorization: nil)
       @http = http
       @uri_builder = uri_builder
@@ -34,15 +36,15 @@ module Coyodlee
     end
 
     def cobrand_login(login_name:, password:)
-      execute(Requests::CobrandLoginRequest, login_name: login_name, password: password)
+      execute(CobrandLoginRequest, login_name: login_name, password: password)
     end
 
     def user_login(login_name:, password:)
-      execute(Requests::UserLoginRequest, login_name: login_name, password: password)
+      execute(UserLoginRequest, login_name: login_name, password: password)
     end
 
     def get_accounts
-      execute(Requests::GetAccountsRequest)
+      execute(GetAccountsRequest)
     end
 
     private
