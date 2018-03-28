@@ -1,5 +1,5 @@
 require 'coyodlee'
-require 'coyodlee/sessions'
+require 'coyodlee/connection'
 require 'dotenv/load'
 require 'pry'
 
@@ -10,10 +10,14 @@ Coyodlee.setup do |config|
   config.cobrand_password = ENV['YODLEE_COBRAND_PASSWORD']
 end
 
-cob_session = Coyodlee::Sessions::CobrandSession.new
+conn = Coyodlee::Connection.create
 
-resp = cob_session.login login_name: Coyodlee.cobrand_login,
-                         password: Coyodlee.cobrand_password
+resp = conn.start do |api|
+  api.cobrand_login login_name: Coyodlee.cobrand_login,
+                    password: Coyodlee.cobrand_password
+end
+
+byebug
 
 puts resp
 
