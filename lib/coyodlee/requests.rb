@@ -3,6 +3,28 @@ require 'json'
 
 module Coyodlee
   module Requests
+    class GetAccountDetailsRequest
+      def initialize(request_builder:, session_authorization:)
+        @request_builder = request_builder
+        @session_authorization = session_authorization
+      end
+
+      def build(account_id:, container:)
+        @request_builder
+          .build(
+            :get,
+            "accounts/#{account_id}",
+            params: {
+              container: container
+            },
+            headers: {
+              'Accept' => 'application/json',
+              'Authorization' => @session_authorization.to_s
+            }
+          )
+      end
+    end
+
     class GetAccountsRequest
       def initialize(request_builder:, session_authorization:)
         @request_builder = request_builder

@@ -8,6 +8,7 @@ module Coyodlee
     end
 
     def build(method, resource_path, headers: {}, params: {}, body: nil)
+      # TODO: Add the params to the resource_path
       uri = @uri_builder.build(resource_path)
       http_constructor(method).new(uri).tap do |req|
         add_headers(req, headers)
@@ -76,6 +77,10 @@ module Coyodlee
 
     def get_accounts
       execute(GetAccountsRequest)
+    end
+
+    def get_account_details(account_id:, container:)
+      execute(GetAccountDetailsRequest, account_id: account_id, container: container)
     end
 
     private
