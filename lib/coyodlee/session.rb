@@ -37,7 +37,7 @@ module Coyodlee
       @api.user_login(login_name: login_name,
                       password: password).tap do |res|
         body = JSON.parse(res.body)
-        token = body.dig('session', 'userSession')
+        token = body.dig('user', 'session', 'userSession')
         @authorization.authorize_user(@user_session_token_klass.new(token))
         @api.authorize(@authorization)
       end
