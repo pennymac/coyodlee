@@ -4,12 +4,13 @@ module Coyodlee
       @cobrand = cobrand
       @version = version
       @host = host
+      @path_prefix = 'ysl'
     end
 
-    def build(relative_path, query: nil, use_ssl: true)
+    def build(resource_path, query: nil, use_ssl: true)
       uri_builder = use_ssl ? URI::HTTPS : URI::HTTP
-      path_fragment = relative_path.start_with?('/') ? relative_path.slice(1..-1) : relative_path
-      path = "/#{@cobrand}/#{@version}/#{path_fragment}"
+      revised_resource_path = resource_path.start_with?('/') ? resource_path.slice(1..-1) : resource_path
+      path = "/#{@path_prefix}/#{@cobrand}/#{@version}/#{revised_resource_path}"
       uri_builder.build(host: @host, path: path, query: query)
     end
   end
