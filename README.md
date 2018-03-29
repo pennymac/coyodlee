@@ -65,36 +65,6 @@ end
 puts resp
 ```
 
-The old implementation can still be used:
-
-``` ruby
-require 'coyodlee'
-
-Coyodlee.setup do |config|
-  config.base_url = ENV['YODLEE_BASE_URL']
-  config.cobrand_login = ENV['YODLEE_COBRAND_LOGIN']
-  config.cobrand_password = ENV['YODLEE_COBRAND_PASSWORD']
-end
-
-require 'coyodlee/sessions'
-
-cob_session = Coyodlee::Sessions::CobrandSession.new
-cob_session.login login_name: Coyodlee.cobrand_login, password: Coyodlee.cobrand_password
-
-user_session = Coyodlee::Sessions::UserSession.new(cobrand_session: cob_session)
-user_session.login login_name: 'yodlee-test-user-login', password: 'yodlee-test-user-password'
-
-require 'coyodlee/client'
-
-client = Coyodlee::Client.new(user_session)
-resp = client.get_accounts
-
-require 'json'
-
-# Print all accounts for the test user
-puts JSON.parse(resp.body)
-```
-
 ## Testing
 
 To run tests: ```bundle exec rake test```.
