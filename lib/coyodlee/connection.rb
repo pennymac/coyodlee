@@ -51,22 +51,6 @@ module Coyodlee
     end
   end
 
-  class RequestExecutor
-    def initialize(facade)
-      @facade = facade
-    end
-
-    def execute(klass, params={})
-      http = @facade.http
-      auth = @facade.session_authorization
-      request_builder = @facade.request_builder
-      req = klass.new(request_builder: request_builder,
-                      session_authorization: auth)
-              .build(params)
-      http.request(req)
-    end
-  end
-
   class RequestFacade
     attr_reader :http
     attr_reader :request_builder
