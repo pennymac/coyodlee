@@ -1,5 +1,6 @@
 require_relative 'uri_builder'
 require 'forwardable'
+require 'net/http'
 
 module Coyodlee
   class RequestBuilder
