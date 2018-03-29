@@ -54,8 +54,63 @@ module Coyodlee
       when :put
         Net::HTTP::Put
       when :delete
-        Net::HTTP::Delet
+        Net::HTTP::Delete
       end
+    end
+  end
+
+  class UserFacade
+    def initialize(request_facade)
+      @request_facade = request_facade
+    end
+
+    def login(login_name:, password:)
+      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
+      body = {
+        user: {
+          loginName: login_name,
+          password: password,
+          locale: 'en_US'
+        }
+      }.to_json
+      req = @request_facade.build(:post, 'user/login', headers: headers, body: body)
+      @request_facade.execute(req)
+    end
+
+    def register(login_name:, password:)
+      headers = { 'Accept' => 'application/json' }
+      req = @request_facade.build(:post, 'user/logout', headers: headers)
+      @request_facade.execute(req)
+    end
+
+    def logout(login_name:, password:)
+      headers = { 'Accept' => 'application/json' }
+      req = @request_facade.build(:post, 'user/logout', headers: headers)
+      @request_facade.execute(req)
+    end
+  end
+
+  class CobrandFacade
+    def initialize(request_facade)
+      @request_facade = request_facade
+    end
+
+    def login(login_name:, password:)
+      body = {
+        cobrand: {
+          cobrandLogin: login_name,
+          cobrandPassword: password,
+          locale: 'en_US'
+        }
+      }.to_json
+      headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+      req = @request_facade.build(:post, 'cobrand/login', headers: headers, body: body)
+      @request_facade.execute(req)
+    end
+
+    def logout
+      req = @request_facade.build(:post, 'cobrand/logout')
+      @request_facade.execute(req)
     end
   end
 
@@ -68,35 +123,18 @@ module Coyodlee
     def initialize(http:, request_builder:)
       @http = http
       @request_builder = request_builder
+      @user_facade = UserFacade.new(self)
+      @cobrand_facade = CobrandFacade.new(self)
     end
 
-    def_delegators :@request_builder, :authorize
+    def_delegators :@request_builder, :authorize, :build
 
-    def cobrand_login(login_name:, password:)
-      body = {
-        cobrand: {
-          cobrandLogin: login_name,
-          cobrandPassword: password,
-          locale: 'en_US'
-        }
-      }.to_json
-      headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
-      req = @request_builder.build(:post, 'cobrand/login', headers: headers, body: body)
-      execute(req)
-    end
+    def_delegator :@user_facade, :login, :login_user
+    def_delegator :@user_facade, :logout, :logout_user
+    def_delegator :@user_facade, :register, :register_user
 
-    def user_login(login_name:, password:)
-      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-      body = {
-        user: {
-          loginName: login_name,
-          password: password,
-          locale: 'en_US'
-        }
-      }.to_json
-      req = @request_builder.build(:post, 'user/login', headers: headers, body: body)
-      execute(req)
-    end
+    def_delegator :@cobrand_facade, :login, :login_cobrand
+    def_delegator :@cobrand_facade, :logout, :logout_cobrand
 
     def accounts
       headers = { 'Accept' => 'application/json' }
@@ -352,8 +390,6 @@ module Coyodlee
       req = @request_builder.build(:get, 'dataExtracts/userData', headers: headers, params: params)
       execute(req)
     end
-
-    private
 
     def execute(req)
       http.request(req)

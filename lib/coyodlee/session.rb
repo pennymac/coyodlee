@@ -23,8 +23,8 @@ module Coyodlee
       @authorization = session_authorization
     end
 
-    def cobrand_login(login_name:, password:)
-      @api.cobrand_login(login_name: login_name,
+    def login_cobrand(login_name:, password:)
+      @api.login_cobrand(login_name: login_name,
                          password: password).tap do |res|
         body = JSON.parse(res.body)
         token = body.dig('session', 'cobSession')
@@ -33,8 +33,8 @@ module Coyodlee
       end
     end
 
-    def user_login(login_name:, password:)
-      @api.user_login(login_name: login_name,
+    def login_user(login_name:, password:)
+      @api.login_user(login_name: login_name,
                       password: password).tap do |res|
         body = JSON.parse(res.body)
         token = body.dig('user', 'session', 'userSession')
