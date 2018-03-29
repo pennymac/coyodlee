@@ -117,6 +117,11 @@ module Coyodlee
       req = @request_facade.build(:post, 'cobrand/logout')
       @request_facade.execute(req)
     end
+
+    def public_key
+      req = @request_facade.build(:get, 'cobrand/publicKey')
+      @request_facade.execute(req)
+    end
   end
 
   class AccountsFacade
@@ -192,6 +197,7 @@ module Coyodlee
 
     def_delegator :@cobrand_facade, :login, :login_cobrand
     def_delegator :@cobrand_facade, :logout, :logout_cobrand
+    def_delegator :@cobrand_facade, :public_key, :cobrand_public_key
 
     def_delegator :@accounts_facade, :all, :accounts
     def_delegator :@accounts_facade, :details, :account_details
