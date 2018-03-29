@@ -50,6 +50,10 @@ module Coyodlee
         Net::HTTP::Get
       when :post
         Net::HTTP::Post
+      when :put
+        Net::HTTP::Put
+      when :delete
+        Net::HTTP::Delet
       end
     end
   end
