@@ -117,7 +117,7 @@ module Coyodlee
 
     def get_provider_accounts
       headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'transactions', headers: headers)
+      req = @request_builder.build(:get, 'providerAccounts', headers: headers)
       execute(req)
     end
 
