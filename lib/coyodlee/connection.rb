@@ -245,7 +245,7 @@ module Coyodlee
       execute(req)
     end
 
-    def provider_account_details(provider_account_id:, params={})
+    def provider_account_details(provider_account_id:, params: {})
       headers = { 'Accept' => 'application/json' }
       req = @request_builder.build(:get, "providerAccounts/#{provider_account_id}", headers: headers, params: params)
       execute(req)
@@ -314,7 +314,7 @@ module Coyodlee
       execute(req)
     end
 
-    def update_transaction_category(category_id:, params={})
+    def update_transaction_category(category_id:, params: {})
       headers = { 'Accept' => 'application/json' }
       req = @request_builder.build(:put, "transactions/categories/#{category_id}", headers: headers, params: params)
       execute(req)
@@ -350,7 +350,7 @@ module Coyodlee
       execute(req)
     end
 
-    def transaction_summary(group_by:, params={})
+    def transaction_summary(group_by:, params: {})
       params['groupBy'] = group_by
       headers = { 'Accept' => 'application/json' }
       req = @request_builder.build(:get, 'derived/transactionSummary', headers: headers, params: params)
