@@ -1,5 +1,4 @@
 require_relative 'coyodlee/version'
-require_relative 'coyodlee/http_wrapper'
 require 'json'
 require 'yajl'
 
