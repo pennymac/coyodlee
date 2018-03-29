@@ -1,5 +1,4 @@
 require_relative 'uri_builder'
-require_relative 'requests'
 require 'forwardable'
 
 module Coyodlee
@@ -55,7 +54,6 @@ module Coyodlee
     attr_reader :http
     attr_reader :request_builder
 
-    include Requests
     extend Forwardable
 
     def initialize(http:, request_builder:)
