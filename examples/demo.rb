@@ -15,13 +15,10 @@ conn = Coyodlee::Connection.create
 
 resp = conn.start do |api|
   session = Coyodlee::Session.create(api)
-  session.cobrand_login login_name: Coyodlee.cobrand_login,
+  session.login_cobrand login_name: Coyodlee.cobrand_login,
                         password: Coyodlee.cobrand_password
-  session.user_login login_name: ENV['YODLEE_USER_1_LOGIN_NAME'],
+  session.login_user login_name: ENV['YODLEE_USER_1_LOGIN_NAME'],
                      password: ENV['YODLEE_USER_1_PASSWORD']
-
-  res = api.get_transactions_count
-  byebug
 end
 
 puts resp
