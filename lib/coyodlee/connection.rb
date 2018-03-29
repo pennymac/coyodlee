@@ -3,10 +3,14 @@ require 'forwardable'
 
 module Coyodlee
   class RequestBuilder
+    extend Forwardable
+
     def initialize(uri_builder)
       @uri_builder = uri_builder
       @session_authorization = nil
     end
+
+    def_delegators :@uri_builder, :host
 
     def authorize(session_authorization)
       @session_authorization = session_authorization

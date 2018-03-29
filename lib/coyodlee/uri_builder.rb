@@ -1,5 +1,7 @@
 module Coyodlee
   class UriBuilder
+    attr_reader :host
+
     def initialize(host:, cobrand: 'restserver', version: 'v1')
       @cobrand = cobrand
       @version = version
