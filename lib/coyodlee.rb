@@ -1,5 +1,4 @@
 require_relative 'coyodlee/version'
-require 'json'
 require 'yajl'
 
 # The global Yodlee configuration object
