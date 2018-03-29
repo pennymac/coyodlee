@@ -83,6 +83,11 @@ module Coyodlee
       @request_facade.execute(req)
     end
 
+    def unregister
+      req = @request_facade.build(:delete, 'user/unregister')
+      @request_facade.execute(req)
+    end
+
     def logout(login_name:, password:)
       headers = { 'Accept' => 'application/json' }
       req = @request_facade.build(:post, 'user/logout', headers: headers)
@@ -183,6 +188,7 @@ module Coyodlee
     def_delegator :@user_facade, :login, :login_user
     def_delegator :@user_facade, :logout, :logout_user
     def_delegator :@user_facade, :register, :register_user
+    def_delegator :@user_facade, :unregister, :unregister_user
 
     def_delegator :@cobrand_facade, :login, :login_cobrand
     def_delegator :@cobrand_facade, :logout, :logout_cobrand
