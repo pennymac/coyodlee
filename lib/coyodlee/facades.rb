@@ -1,3 +1,5 @@
 require_relative 'facades/accounts_facade'
 require_relative 'facades/user_facade'
 require_relative 'facades/cobrand_facade'
+require_relative 'facades/transactions_facade'
+require_relative 'facades/holdings_facade'

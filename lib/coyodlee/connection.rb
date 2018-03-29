@@ -65,6 +65,7 @@ module Coyodlee
     attr_reader :request_builder
 
     extend Forwardable
+    include Facades
 
     def initialize(http:, request_builder:)
       @http = http
@@ -72,6 +73,9 @@ module Coyodlee
       @user_facade = UserFacade.new(self)
       @cobrand_facade = CobrandFacade.new(self)
       @accounts_facade = AccountsFacade.new(self)
+      @transactions_facade = TransactionsFacade.new(self)
+      @holdings_facade = HoldingsFacade.new(self)
+      @provider_accounts_facade = ProviderAccountsFacade.new(self)
     end
 
     def_delegators :@request_builder, :authorize, :build
@@ -93,41 +97,29 @@ module Coyodlee
     def_delegator :@accounts_facade, :investment_options, :investment_options
     def_delegator :@accounts_facade, :historical_balances, :historical_balances
 
-    def transactions_count(params={})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'transactions/count', params: params, headers: headers)
-      execute(req)
-    end
+    def_delegator :@holdings_facade, :all, :holdings
+    def_delegators :@holdings_facade, :extended_securities_info, :holding_type_list, :asset_classification_list
 
-    def provider_accounts
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'providerAccounts', headers: headers)
-      execute(req)
-    end
+    def_delegator :@transactions_facade, :count, :transactions_count
+    def_delegator :@transactions_facade, :all, :transactions
+    def_delegator :@transactions_facade, :categorization_rules, :transaction_categorization_rules
+    def_delegator :@transactions_facade, :create_categorization_rule, :create_transaction_categorization_rule
+    def_delegator :@transactions_facade, :update_categorization_rule, :update_transaction_categorization_rule
+    def_delegator :@transactions_facade, :delete_categorization_rule, :delete_transaction_categorization_rule
+    def_delegator :@transactions_facade, :run_categorization_rule, :run_transaction_categorization_rule
+    def_delegator :@transactions_facade, :run_all_categorization_rule, :run_all_transaction_categorization_rule
+    def_delegator :@transactions_facade, :update, :update_transaction
+    def_delegator :@transactions_facade, :category_list, :transaction_category_list
+    def_delegator :@transactions_facade, :create_category, :create_transaction_category
+    def_delegator :@transactions_facade, :update_category, :update_transaction_category
+    def_delegator :@transactions_facade, :delete_category, :delete_transaction_category
 
-    def holdings(params={})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'holdings', headers: headers, params: params)
-      execute(req)
-    end
-
-    def extended_securities_info(params={})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'holdings/securities', headers: headers, params: params)
-      execute(req)
-    end
-
-    def holding_type_list
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'holdings/holdingTypeList', headers: headers)
-      execute(req)
-    end
-
-    def asset_classification_list
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'holdings/assetClassificationList', headers: headers)
-      execute(req)
-    end
+    def_delegator :@provider_accounts_facade, :add, :add_provider_account
+    def_delegator :@provider_accounts_facade, :details, :provider_account_details
+    def_delegator :@provider_accounts_facade, :delete, :delete_provider_account
+    def_delegator :@provider_accounts_facade, :update, :update_provider_account
+    def_delegator :@provider_accounts_facade, :verify, :verify_provider_account
+    def_delegator :@provider_accounts_facade, :verification_status, :provider_account_verification_status
 
     def providers(params={})
       headers = { 'Accept' => 'application/json' }
@@ -135,126 +127,10 @@ module Coyodlee
       execute(req)
     end
 
-    def verify_provider_account(body:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:put, 'providerAccounts/verification', headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def verification_status(provider_account_id:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, "providerAccounts/verification/#{provider_account_id}", headers: headers)
-      execute(req)
-    end
-
-    def update_provider_account(body:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:put, 'providerAccounts', headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def delete_provider_account(provider_account_id:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:delete, "providerAccounts/#{provider_account_id}", headers: headers)
-      execute(req)
-    end
-
-    def provider_account_details(provider_account_id:, params: {})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, "providerAccounts/#{provider_account_id}", headers: headers, params: params)
-      execute(req)
-    end
-
-    def add_provider_account(provider_id:, body:)
-      headers = { 'Accept' => 'application/json' }
-      params = { 'providerId' => provider_id }
-      req = @request_builder.build(:post, "providerAccounts", headers: headers, params: params, body: body)
-      execute(req)
-    end
-
     def provider_details(provider_id:, provider_account_id:)
       headers = { 'Accept' => 'application/json' }
       params = { 'providerAccountId' => provider_account_id }
       req = @request_builder.build(:get, "providers/#{provider_id}", headers: headers, params: params)
-      execute(req)
-    end
-
-    def transactions(params={})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'transactions', params: params, headers: headers)
-      execute(req)
-    end
-
-    def transaction_categorization_rules
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'transactions/categories/rules', headers: headers)
-      execute(req)
-    end
-
-    def create_transaction_categorization_rule(body:)
-      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-      req = @request_builder.build(:post, 'transactions/categories/rules', headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def update_transaction_categorization_rule(rule_id:, body:)
-      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-      req = @request_builder.build(:put, "transactions/categories/rules/#{rule_id}", headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def delete_transaction_categorization_rule(rule_id:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:put, "transactions/categories/rules/#{rule_id}", headers: headers)
-      execute(req)
-    end
-
-    def run_transaction_categorization_rule(rule_id:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:post, "transactions/categories/rules/#{rule_id}", headers: headers)
-      execute(req)
-    end
-
-    def run_all_transaction_categorization_rules
-      params = { 'action' => 'run' }
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:post, 'transactions/categories/rules', headers: headers, params: params)
-      execute(req)
-    end
-
-    def delete_transaction_category(category_id:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:delete, "transactions/categories/#{category_id}", headers: headers)
-      execute(req)
-    end
-
-    def update_transaction_category(category_id:, params: {})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:put, "transactions/categories/#{category_id}", headers: headers, params: params)
-      execute(req)
-    end
-
-    def transaction_category_list
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'transactions/categories', headers: headers)
-      execute(req)
-    end
-
-    def create_category(body:)
-      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-      req = @request_builder.build(:post, 'transactions/categories', headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def update_category(body:)
-      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-      req = @request_builder.build(:put, 'transactions/categories', headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def transactions(params={})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'transactions', headers: headers, params: params)
       execute(req)
     end
 
