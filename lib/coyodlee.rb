@@ -5,9 +5,6 @@ require 'yajl'
 module Coyodlee
 
   class << self
-    # The base url Yodlee provides for your cobrand
-    # @return [String] The base url Yodlee provides for your cobrand
-    attr_accessor :base_url
     # The name of the Yodlee API host
     # @return [String] The name of the Yodlee API host
     attr_accessor :host
