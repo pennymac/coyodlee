@@ -154,7 +154,7 @@ module Coyodlee
     end
 
     def start(&block)
-      Net::HTTP.start('developer.api.yodlee.com', use_ssl: true) do |http|
+      Net::HTTP.start(@request_builder.host, use_ssl: true) do |http|
         yield RequestFacade.new(http: http,
                                 request_builder: @request_builder)
       end
