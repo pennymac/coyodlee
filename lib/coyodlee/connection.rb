@@ -8,8 +8,8 @@ module Coyodlee
     end
 
     def build(method, resource_path, headers: {}, params: {}, body: nil)
-      # TODO: Add the params to the resource_path
-      uri = @uri_builder.build(resource_path)
+      q = params.empty? ? nil : build_query(params)
+      uri = @uri_builder.build(resource_path, query: q)
       http_constructor(method).new(uri).tap do |req|
         add_headers(req, headers)
         req.body = body if body
@@ -17,6 +17,13 @@ module Coyodlee
     end
 
     private
+
+    def build_query(params)
+      params
+        .to_a
+        .map { |keyval| keyval.join('=') }
+        .join('&')
+    end
 
     def add_headers(req, headers)
       headers.each do |key, value|
@@ -81,6 +88,18 @@ module Coyodlee
 
     def get_account_details(account_id:, container:)
       execute(GetAccountDetailsRequest, account_id: account_id, container: container)
+    end
+
+    def get_transactions_count(params={})
+      execute(GetTransactionsCountRequest, params)
+    end
+
+    def get_provider_accounts
+      execute(GetProviderAccountsRequest)
+    end
+
+    def get_transactions(params={})
+      execute(GetTransactionsRequest, params)
     end
 
     private

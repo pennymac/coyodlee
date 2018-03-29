@@ -3,6 +3,65 @@ require 'json'
 
 module Coyodlee
   module Requests
+    class GetProviderAccountsRequest
+      def initialize(request_builder:, session_authorization:)
+        @request_builder = request_builder
+        @session_authorization = session_authorization
+      end
+
+      def build(_)
+        @request_builder
+          .build(
+            :get,
+            'providerAccounts',
+            headers: {
+              'Accept' => 'application/json',
+              'Authorization' => @session_authorization.to_s
+            }
+          )
+      end
+    end
+
+    class GetTransactionsRequest
+      def initialize(request_builder:, session_authorization:)
+        @request_builder = request_builder
+        @session_authorization = session_authorization
+      end
+
+      def build(params={})
+        @request_builder
+          .build(
+            :get,
+            'transactions',
+            params: params,
+            headers: {
+              'Accept' => 'application/json',
+              'Authorization' => @session_authorization.to_s
+            }
+          )
+      end
+    end
+
+    class GetTransactionsCountRequest
+      def initialize(request_builder:, session_authorization:)
+        @request_builder = request_builder
+        @session_authorization = session_authorization
+      end
+
+      def build(params={})
+        @request_builder
+          .build(
+            :get,
+            'transactions/count',
+            params: params,
+            headers: {
+              'Accept' => 'application/json',
+              'Authorization' => @session_authorization.to_s
+            }
+          )
+      end
+    end
+
     class GetAccountDetailsRequest
       def initialize(request_builder:, session_authorization:)
         @request_builder = request_builder
