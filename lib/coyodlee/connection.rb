@@ -114,6 +114,56 @@ module Coyodlee
     end
   end
 
+  class AccountsFacade
+    def initialize(request_facade)
+      @request_facade = request_facade
+    end
+
+    def all
+      headers = { 'Accept' => 'application/json' }
+      req = @request_facade.build(:get, 'accounts', headers: headers)
+      @request_facade.execute(req)
+    end
+
+    def details(account_id:, container:)
+      headers = { 'Accept' => 'application/json' }
+      params = { container: container }
+      req = @request_facade.build(:get, "accounts/#{account_id}", params: params, headers: headers)
+      @request_facade.execute(req)
+    end
+
+    def update(account_id:, body:)
+      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
+      req = @request_facade.build(:put, "accounts/#{account_id}", headers: headers, body: body.to_json)
+      @request_facade.execute(req)
+    end
+
+    def delete(account_id:)
+      headers = { 'Accept' => 'application/json' }
+      req = @request_facade.build(:delete, "accounts/#{account_id}", headers: headers)
+      @request_facade.execute(req)
+    end
+
+    def add_manually(body:)
+      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
+      req = @request_facade.build(:post, 'accounts', headers: headers, body: body.to_json)
+      @request_facade.execute(req)
+    end
+
+    def investment_options(params={})
+      headers = { 'Accept' => 'application/json' }
+      req = @request_facade.build(:get, 'accounts/investmentPlan/investmentOptions', headers: headers, params: params)
+      @request_facade.execute(req)
+    end
+
+    def historical_balances(params={})
+      headers = { 'Accept' => 'application/json' }
+      req = @request_facade.build(:get, 'accounts/historicalBalances', headers: headers, params: params)
+      @request_facade.execute(req)
+    end
+
+  end
+
   class RequestFacade
     attr_reader :http
     attr_reader :request_builder
@@ -125,6 +175,7 @@ module Coyodlee
       @request_builder = request_builder
       @user_facade = UserFacade.new(self)
       @cobrand_facade = CobrandFacade.new(self)
+      @accounts_facade = AccountsFacade.new(self)
     end
 
     def_delegators :@request_builder, :authorize, :build
@@ -136,18 +187,13 @@ module Coyodlee
     def_delegator :@cobrand_facade, :login, :login_cobrand
     def_delegator :@cobrand_facade, :logout, :logout_cobrand
 
-    def accounts
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'accounts', headers: headers)
-      execute(req)
-    end
-
-    def account_details(account_id:, container:)
-      headers = { 'Accept' => 'application/json' }
-      params = { container: container }
-      req = @request_builder.build(:get, "accounts/#{account_id}", params: params, headers: headers)
-      execute(req)
-    end
+    def_delegator :@accounts_facade, :all, :accounts
+    def_delegator :@accounts_facade, :details, :account_details
+    def_delegator :@accounts_facade, :update, :update_account
+    def_delegator :@accounts_facade, :delete, :delete_account
+    def_delegator :@accounts_facade, :add_manually, :add_manual_account
+    def_delegator :@accounts_facade, :investment_options, :investment_options
+    def_delegator :@accounts_facade, :historical_balances, :historical_balances
 
     def transactions_count(params={})
       headers = { 'Accept' => 'application/json' }
@@ -158,36 +204,6 @@ module Coyodlee
     def provider_accounts
       headers = { 'Accept' => 'application/json' }
       req = @request_builder.build(:get, 'providerAccounts', headers: headers)
-      execute(req)
-    end
-
-    def update_account(account_id:, body:)
-      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-      req = @request_builder.build(:put, "accounts/#{account_id}", headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def delete_account(account_id:)
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:delete, "accounts/#{account_id}", headers: headers)
-      execute(req)
-    end
-
-    def add_manual_account(body:)
-      headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-      req = @request_builder.build(:post, 'accounts', headers: headers, body: body.to_json)
-      execute(req)
-    end
-
-    def investment_options(params={})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'accounts/investmentPlan/investmentOptions', headers: headers, params: params)
-      execute(req)
-    end
-
-    def historical_balances(params={})
-      headers = { 'Accept' => 'application/json' }
-      req = @request_builder.build(:get, 'accounts/historicalBalances', headers: headers, params: params)
       execute(req)
     end
 
