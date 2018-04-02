@@ -7,46 +7,42 @@ http_interactions:
       encoding: UTF-8
       string: '{"cobrand":{"cobrandLogin":"<COBRAND_LOGIN>","cobrandPassword":"<COBRAND_PASSWORD>","locale":"en_US"}}'
     headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       Accept:
       - application/json
-      Accept-Encoding:
-      - gzip, deflate
       User-Agent:
-      - rest-client/2.0.2 (darwin14.5.0 x86_64) ruby/2.3.3p222
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '114'
+      - Ruby
       Host:
       - developer.api.yodlee.com
+      Content-Type:
+      - application/json
   response:
     status:
       code: 200
       message: OK
     headers:
+      Connection:
+      - keep-alive
       Yodlee-Ref-Id:
-      - C1513985645217U4K27B000000NLLYb
-      Content-Type:
-      - application/json;charset=UTF-8
+      - P1522686893737q4r26U000000NLPYn
       Transfer-Encoding:
       - chunked
-      Content-Encoding:
-      - gzip
-      Vary:
-      - Accept-Encoding
+      Content-Type:
+      - application/json;charset=UTF-8
       Date:
-      - Fri, 22 Dec 2017 23:34:05 GMT
-      Server:
-      - Unknown
+      - Mon, 02 Apr 2018 16:34:55 GMT
     body:
-      encoding: ASCII-8BIT
-      string: !binary |-
-        H4sIAAAAAAAAAEWOsW7DMAxE93yFobkDaVGUnM11bKBz0DmgRBoIYNhB3S3I
-        v1dJho73Do/H+6FpXNnyj6z6pa45NgiA4EP78WzkdluuRX6v2/pune9p6Mfu
-        M2KPw3CK00Q4hSrx2I0nAPfylq3IYi/B1sv3+U132/d66YnvNb+Xz//QQQJu
-        Af2lPYpJ9IE8KSRKWqNR7ixqyRJYCTMKkqgFS+pLmCFwhDx7pmisOJtQZhQB
-        7hJ3ISMUDxpjWycIrcUUPEnSFAOWCNaxQYme06wZjF198HF4/AHaS7TuIAEA
-        AA==
+      encoding: UTF-8
+      string: |-
+        {
+          "cobrandId" : 10010352,
+          "applicationId" : "3A4CAE9B71A1CCD7FF41F51006E9ED00",
+          "locale" : "en_US",
+          "session" : {
+            "cobSession" : "08062013_2:fb7e1df8e07c343113dbedca0a8449b7f1e71d309fd9962c661d0afd1cffdf276dbe71868c707e7a685e65a4f12c75711e0d8f2cbd3041c0b09520302238fe6b"
+          }
+        }
     http_version: 
-  recorded_at: Fri, 22 Dec 2017 23:34:05 GMT
+  recorded_at: Mon, 02 Apr 2018 16:34:55 GMT
 recorded_with: VCR 3.0.3

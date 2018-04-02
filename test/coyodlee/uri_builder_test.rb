@@ -8,14 +8,14 @@ module Coyodlee
       full_uri = uri_builder.build('/cobrand/login')
 
       assert_equal full_uri.request_uri,
-                   '/restserver/v1/cobrand/login'
+                   '/ysl/restserver/v1/cobrand/login'
       assert_equal full_uri.host,
                    'developer.api.yodlee.com'
       assert_equal full_uri.scheme,
                    'https'
       assert_nil full_uri.query
       assert_equal full_uri.to_s,
-                   'https://developer.api.yodlee.com/restserver/v1/cobrand/login'
+                   'https://developer.api.yodlee.com/ysl/restserver/v1/cobrand/login'
     end
   end
 end
