@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'coyodlee/user_session_token'
+require 'coyodlee/session_tokens'
 
 module Coyodlee
   class UserSessionTokenTest < Minitest::Test

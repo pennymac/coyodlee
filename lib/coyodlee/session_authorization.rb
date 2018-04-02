@@ -1,4 +1,4 @@
-require_relative 'null_session_token'
+require_relative 'session_tokens'
 
 module Coyodlee
   class SessionAuthorization

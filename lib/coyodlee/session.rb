@@ -1,6 +1,5 @@
-require_relative 'cobrand_session_token'
-require_relative 'user_session_token'
 require_relative 'session_authorization'
+require_relative 'session_tokens'
 require 'json'
 
 module Coyodlee

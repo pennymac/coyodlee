@@ -1,7 +1,6 @@
 require 'test_helper'
 require 'coyodlee/session_authorization'
-require 'coyodlee/cobrand_session_token'
-require 'coyodlee/user_session_token'
+require 'coyodlee/session_tokens'
 require 'pry'
 
 module Coyodlee

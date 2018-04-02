@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'coyodlee/cobrand_session_token'
+require 'coyodlee/session_tokens'
 
 module Coyodlee
   class CobrandSessionTokenTest < Minitest::Test
