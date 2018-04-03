@@ -7,6 +7,10 @@
 
 The software in this repository is in an early alpha state. This repository is currently not accepting pull requests or responding to issues. If there is a bug in the code or a feature you'd like to have, feel free to fork the repository.
 
+## Requirements
+
+This library works with Ruby 2.3+.
+
 ## Setup
 
 In sandbox mode, point the ```base_url``` to ```https://developer.api.yodlee.com/ysl/restserver/v1```.
