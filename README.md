@@ -1,6 +1,7 @@
 # Coyodlee
 [![Gem Version](https://badge.fury.io/rb/coyodlee.svg)](https://badge.fury.io/rb/coyodlee)
 [![Build Status](https://travis-ci.org/pennymac/coyodlee.svg?branch=master)](https://travis-ci.org/pennymac/coyodlee)
+[![CircleCI](https://circleci.com/gh/pennymac/coyodlee/tree/master.svg?style=svg)](https://circleci.com/gh/pennymac/coyodlee/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f36b069069540b196fbd/maintainability)](https://codeclimate.com/github/pennymac/coyodlee/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f36b069069540b196fbd/test_coverage)](https://codeclimate.com/github/pennymac/coyodlee/test_coverage)
 
