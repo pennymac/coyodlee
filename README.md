@@ -14,7 +14,7 @@ This library works with Ruby 2.3+.
 
 ## Setup
 
-In sandbox mode, point the ```base_url``` to ```https://developer.api.yodlee.com/ysl/restserver/v1```.
+In sandbox mode, set ```Coyodlee.host``` to ```developer.api.yodlee.com```.
 
 Export the following environment variables:
 
