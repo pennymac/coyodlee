@@ -60,7 +60,7 @@ module Coyodlee
         @request_facade.execute(req)
       end
 
-      def category_list
+      def list_categories
         headers = { 'Accept' => 'application/json' }
         req = @request_facade.build(:get, 'transactions/categories', headers: headers)
         @request_facade.execute(req)

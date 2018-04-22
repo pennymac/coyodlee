@@ -109,7 +109,7 @@ module Coyodlee
     def_delegator :@transactions_facade, :run_categorization_rule, :run_transaction_categorization_rule
     def_delegator :@transactions_facade, :run_all_categorization_rule, :run_all_transaction_categorization_rule
     def_delegator :@transactions_facade, :update, :update_transaction
-    def_delegator :@transactions_facade, :category_list, :transaction_category_list
+    def_delegator :@transactions_facade, :list_categories, :transaction_categories
     def_delegator :@transactions_facade, :create_category, :create_transaction_category
     def_delegator :@transactions_facade, :update_category, :update_transaction_category
     def_delegator :@transactions_facade, :delete_category, :delete_transaction_category
