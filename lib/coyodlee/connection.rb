@@ -82,6 +82,7 @@ module Coyodlee
 
     def_delegator :@user_facade, :login, :login_user
     def_delegator :@user_facade, :logout, :logout_user
+    def_delegator :@user_facade, :access_tokens, :user_access_tokens
     def_delegator :@user_facade, :register, :register_user
     def_delegator :@user_facade, :unregister, :unregister_user
 

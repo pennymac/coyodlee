@@ -18,9 +18,23 @@ module Coyodlee
         @request_facade.execute(req)
       end
 
-      def register(login_name:, password:)
+      def access_tokens(app_ids:)
         headers = { 'Accept' => 'application/json' }
-        req = @request_facade.build(:post, 'user/logout', headers: headers)
+        params = { 'appIds' => app_ids }
+        req = @request_facade.build(:get, 'user/accessTokens', params: params, headers: headers)
+        @request_facade.execute(req)
+      end
+
+      def register(login_name:, password:, email:, user: {})
+        headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
+        body = {
+          user: {
+            loginName: login_name,
+            password: password,
+            email: email
+          }.merge(user)
+        }.to_json
+        req = @request_facade.build(:post, 'user/register', headers: headers, body: body)
         @request_facade.execute(req)
       end
 
