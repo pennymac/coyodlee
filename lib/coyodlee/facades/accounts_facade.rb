@@ -13,7 +13,7 @@ module Coyodlee
 
       def details(account_id:, container:)
         headers = { 'Accept' => 'application/json' }
-        params = { container: container }
+        params = { 'container' => container }
         req = @request_facade.build(:get, "accounts/#{account_id}", params: params, headers: headers)
         @request_facade.execute(req)
       end
