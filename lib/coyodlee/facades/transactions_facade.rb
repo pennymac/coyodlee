@@ -66,9 +66,10 @@ module Coyodlee
         @request_facade.execute(req)
       end
 
-      def create_category(body:)
-        headers = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
-        req = @request_facade.build(:post, 'transactions/categories', headers: headers, body: body.to_json)
+      def create_category(category_name:, parent_category_id:)
+        headers = { 'Accept' => 'application/json' }
+        params = { 'categoryParam' => { 'categoryName' => category_name, 'parentCategoryId' => parent_category_id }.to_json }
+        req = @request_facade.build(:post, 'transactions/categories', headers: headers, params: params)
         @request_facade.execute(req)
       end
 
