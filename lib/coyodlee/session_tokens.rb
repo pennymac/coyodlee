@@ -1,39 +1,29 @@
 module Coyodlee
   class NullSessionToken
+    # @return [Boolean] false
     def present?
       false
     end
 
+    # @return [String] the empty string
     def to_s
       ''
     end
   end
 
-  class UserSessionToken
+  class SessionToken
     def initialize(token='')
       @token = token
     end
 
+    # @return [Boolean] Returns true if the token is not empty; false otherwise
     def present?
       !@token.empty?
     end
 
+    # @return [String] Returns the string value of the token
     def to_s
-      @token.empty? ? '' : "userSession=#{@token}"
-    end
-  end
-
-  class CobrandSessionToken
-    def initialize(token='')
-      @token = token
-    end
-
-    def present?
-      !@token.empty?
-    end
-
-    def to_s
-      @token.empty? ? '' : "cobSession=#{@token}"
+      @token
     end
   end
 end
