@@ -1,9 +1,10 @@
 module Coyodlee
   class UriBuilder
     attr_reader :host
+    attr_reader :cobrand
 
     def initialize(host:, cobrand: 'restserver', version: 'v1')
-      @cobrand = cobrand
+      @cobrand = cobrand || 'restserver'
       @version = version
       @host = host
       @path_prefix = 'ysl'

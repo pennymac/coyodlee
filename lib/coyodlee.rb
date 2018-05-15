@@ -23,6 +23,9 @@ module Coyodlee
     # The FastLink url
     # @return [String] The FastLink url
     attr_accessor :fastlink_url
+    # The Yodlee API version you are targeting
+    # @return [String] The Yodlee API version you are targeting
+    attr_accessor :api_version
 
     # The method to configure Yodlee parameters. Use this to set the global parameters such as {Yodlee.base_url}, {Yodlee.cobrand_login}, and {Yodlee.cobrand_password}
     # @yieldparam config [Yodlee] The Yodlee object

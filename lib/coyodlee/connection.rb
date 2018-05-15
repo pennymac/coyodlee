@@ -7,9 +7,10 @@ module Coyodlee
   class RequestBuilder
     extend Forwardable
 
-    def initialize(uri_builder)
+    def initialize(uri_builder, version: nil)
       @uri_builder = uri_builder
       @session_authorization = nil
+      @api_version = version.to_s
     end
 
     def_delegators :@uri_builder, :host
@@ -39,6 +40,11 @@ module Coyodlee
     def add_headers(req, headers)
       if @session_authorization
         headers['Authorization'] = @session_authorization.to_s
+      end
+
+      unless @api_version.empty?
+        headers['Api-Version'] = @api_version
+        headers['Cobrand-Name'] = @uri_builder.cobrand
       end
 
       headers.each do |key, value|
@@ -76,6 +82,7 @@ module Coyodlee
       @transactions_facade = TransactionsFacade.new(self)
       @holdings_facade = HoldingsFacade.new(self)
       @provider_accounts_facade = ProviderAccountsFacade.new(self)
+      @documents_facade = DocumentsFacade.new(self)
     end
 
     def_delegators :@request_builder, :authorize, :build
@@ -121,6 +128,10 @@ module Coyodlee
     def_delegator :@provider_accounts_facade, :update, :update_provider_account
     def_delegator :@provider_accounts_facade, :verify, :verify_provider_account
     def_delegator :@provider_accounts_facade, :verification_status, :provider_account_verification_status
+
+    def_delegator :@documents_facade, :all, :documents
+    def_delegator :@documents_facade, :download, :download_document
+    def_delegator :@documents_facade, :delete, :delete_document
 
     def providers(params={})
       headers = { 'Accept' => 'application/json' }
@@ -189,8 +200,9 @@ module Coyodlee
 
   class Connection
     class << self
-      def create
-        new RequestBuilder.new(UriBuilder.new(host: Coyodlee.host))
+      def create(version: nil)
+        new RequestBuilder.new(UriBuilder.new(host: Coyodlee.host, cobrand: Coyodlee.cobrand_name),
+                               version: version)
       end
     end
 
