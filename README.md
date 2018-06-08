@@ -5,6 +5,10 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/f36b069069540b196fbd/maintainability)](https://codeclimate.com/github/pennymac/coyodlee/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f36b069069540b196fbd/test_coverage)](https://codeclimate.com/github/pennymac/coyodlee/test_coverage)
 
+## Documentation
+
+Check out the API documentation for the latest stable release at [RubyDoc](https://www.rubydoc.info/gems/coyodlee/0.2.3).
+
 ## Status
 
 The software in this repository is in an early alpha state. This repository is currently not accepting pull requests or responding to issues. If there is a bug in the code or a feature you'd like to have, feel free to fork the repository.
