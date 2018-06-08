@@ -90,7 +90,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/pennymac/coyodlee. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+This repository contains alpha software and is currently not open to pull requests. If you'd like to modify the code in this repository, feel free to fork it.
 
 ## License
 
