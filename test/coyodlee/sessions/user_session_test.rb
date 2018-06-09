@@ -21,7 +21,7 @@ module Coyodlee
         conn.start do |api|
           session = Coyodlee::Session.create(api)
 
-          assert session.authorization.to_s.empty?
+          assert api.session_authorization.to_s.empty?
 
           VCR.use_cassette('cobrand_login_success', allow_playback_repeats: true) do
             session.login_cobrand login_name: Coyodlee.cobrand_login,
@@ -33,7 +33,7 @@ module Coyodlee
                                password: password
           end
 
-          refute session.authorization.to_s.empty?
+          refute api.session_authorization.to_s.empty?
         end
       end
     end

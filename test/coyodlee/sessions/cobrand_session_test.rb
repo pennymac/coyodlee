@@ -20,12 +20,12 @@ module Coyodlee
           conn.start do |api|
             session = Coyodlee::Session.create(api)
 
-            assert session.authorization.to_s.empty?
+            assert api.session_authorization.to_s.empty?
 
             session.login_cobrand login_name: Coyodlee.cobrand_login,
                                   password: Coyodlee.cobrand_password
 
-            refute session.authorization.to_s.empty?
+            refute api.session_authorization.to_s.empty?
           end
         end
       end

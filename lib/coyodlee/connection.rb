@@ -1,5 +1,7 @@
 require_relative 'uri_builder'
 require_relative 'facades'
+require_relative 'session_tokens'
+require_relative 'session_authorization'
 require 'forwardable'
 require 'net/http'
 
@@ -7,15 +9,23 @@ module Coyodlee
   class RequestBuilder
     extend Forwardable
 
+    attr_reader :session_authorization
+
     def initialize(uri_builder)
       @uri_builder = uri_builder
-      @session_authorization = nil
+      @session_authorization = SessionAuthorization.create
     end
 
     def_delegators :@uri_builder, :host
 
-    def authorize(session_authorization)
-      @session_authorization = session_authorization
+    def authorize_user(user_session_token)
+      token = SessionToken.new user_session_token
+      @session_authorization.user_session_token = token
+    end
+
+    def authorize_cobrand(cobrand_session_token)
+      token = SessionToken.new cobrand_session_token
+      @session_authorization.cobrand_session_token = token
     end
 
     def build(method, resource_path, headers: {}, params: {}, body: nil)
@@ -78,7 +88,7 @@ module Coyodlee
       @provider_accounts_facade = ProviderAccountsFacade.new(self)
     end
 
-    def_delegators :@request_builder, :authorize, :build
+    def_delegators :@request_builder, :build, :authorize_cobrand, :authorize_user, :session_authorization
 
     # @!method login_user
     #   @see UserFacade#login

@@ -6,26 +6,19 @@ module Coyodlee
   # authenticated requests to the Yodlee API
   class SessionAuthorization
     # @return [SessionToken] the cobrand session token
-    attr_reader :cobrand_session_token
+    attr_accessor :cobrand_session_token
     # @return [SessionToken] the user session token
-    attr_reader :user_session_token
+    attr_accessor :user_session_token
+
+    class << self
+      def create(authorization=NullSessionAuthorization.new)
+        new(cobrand_session_token: authorization.cobrand_session_token,
+            user_session_token: authorization.user_session_token)
+      end
+    end
 
     def initialize(cobrand_session_token: NullSessionToken.new, user_session_token: NullSessionToken.new)
       @cobrand_session_token = cobrand_session_token
-      @user_session_token = user_session_token
-    end
-
-    # Sets the cobrand session token
-    # @param cobrand_session_token [SessionToken] the cobrand session token
-    # @return [SessionToken] the cobrand session token
-    def authorize_cobrand(cobrand_session_token)
-      @cobrand_session_token = cobrand_session_token
-    end
-
-    # Sets the user session token
-    # @param user_session_token [SessionToken] the user session token
-    # @return [SessionToken] the user session token
-    def authorize_user(user_session_token)
       @user_session_token = user_session_token
     end
 
@@ -37,6 +30,16 @@ module Coyodlee
         .map { |k, token| [k, token.to_s] }
         .map { |arr| arr.join('=') }
         .join(',')
+    end
+  end
+
+  class NullSessionAuthorization
+    def cobrand_session_token
+      @cobrand_session_token ||= NullSessionToken.new
+    end
+
+    def user_session_token
+      @user_session_token ||= NullSessionToken.new
     end
   end
 end

@@ -1,5 +1,6 @@
 require 'coyodlee'
 require 'coyodlee/connection'
+require 'coyodlee/messages'
 require 'coyodlee/session'
 require 'dotenv/load'
 require 'pry'
