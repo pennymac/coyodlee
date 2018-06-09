@@ -80,14 +80,30 @@ module Coyodlee
 
     def_delegators :@request_builder, :authorize, :build
 
+    # @!method login_user
+    #   @see UserFacade#login
     def_delegator :@user_facade, :login, :login_user
+    # @!method logout_user
+    #   @see UserFacade#logout
     def_delegator :@user_facade, :logout, :logout_user
+    # @!method user_access_tokens
+    #   @see UserFacade#access_tokens
     def_delegator :@user_facade, :access_tokens, :user_access_tokens
+    # @!method register_user
+    #   @see UserFacade#register
     def_delegator :@user_facade, :register, :register_user
+    # @!method unregister_user
+    #   @see UserFacade#unregister
     def_delegator :@user_facade, :unregister, :unregister_user
 
+    # @!method login_cobrand
+    #   @see CobrandFacade#login
     def_delegator :@cobrand_facade, :login, :login_cobrand
+    # @!method logout_cobrand
+    #   @see CobrandFacade#logout
     def_delegator :@cobrand_facade, :logout, :logout_cobrand
+    # @!method cobrand_public_key
+    #   @see CobrandFacade#public_key
     def_delegator :@cobrand_facade, :public_key, :cobrand_public_key
 
     def_delegator :@accounts_facade, :all, :accounts
