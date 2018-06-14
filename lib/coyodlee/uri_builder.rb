@@ -2,8 +2,8 @@ module Coyodlee
   class UriBuilder
     attr_reader :host
 
-    def initialize(host:, cobrand: 'restserver', version: 'v1')
-      @cobrand = cobrand
+    def initialize(host:, cobrand_name: 'restserver', version: 'v1')
+      @cobrand_name = cobrand_name
       @version = version
       @host = host
       @path_prefix = 'ysl'
@@ -16,7 +16,7 @@ module Coyodlee
                               else
                                 resource_path
                               end
-      path = [@path_prefix, @cobrand, @version, revised_resource_path]
+      path = [@path_prefix, @cobrand_name, @version, revised_resource_path]
                .compact
                .join('/')
                .prepend('/')

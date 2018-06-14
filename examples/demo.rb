@@ -7,6 +7,7 @@ require 'pry'
 
 Coyodlee.setup do |config|
   config.host = 'developer.api.yodlee.com'
+  config.cobrand_name = 'restserver'
   config.cobrand_login = ENV['YODLEE_COBRAND_LOGIN']
   config.cobrand_password = ENV['YODLEE_COBRAND_PASSWORD']
 end

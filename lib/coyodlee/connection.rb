@@ -216,7 +216,7 @@ module Coyodlee
   class Connection
     class << self
       def create
-        new RequestBuilder.new(UriBuilder.new(host: Coyodlee.host))
+        new RequestBuilder.new(UriBuilder.new(host: Coyodlee.host, cobrand_name: Coyodlee.cobrand_name))
       end
     end
 

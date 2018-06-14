@@ -19,7 +19,7 @@ This library works with Ruby 2.3+.
 
 ## Setup
 
-In sandbox mode, set ```Coyodlee.host``` to ```developer.api.yodlee.com```.
+In sandbox mode, set ```Coyodlee.host``` to ```developer.api.yodlee.com``` and `Coyodlee.cobrand_name` to `restserver`.
 
 Export the following environment variables:
 
@@ -53,6 +53,7 @@ require 'coyodlee'
 
 Coyodlee.setup do |config|
   config.host = 'developer.api.yodlee.com'
+  config.cobrand_name = 'restserver'
   config.cobrand_login = ENV['YODLEE_COBRAND_LOGIN']
   config.cobrand_password = ENV['YODLEE_COBRAND_PASSWORD']
 end
