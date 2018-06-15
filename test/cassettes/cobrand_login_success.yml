@@ -2,51 +2,6 @@
 http_interactions:
 - request:
     method: post
-    uri: https://developer.api.yodlee.com/ysl/restserver/v1/cobrand/login
-    body:
-      encoding: UTF-8
-      string: '{"cobrand":{"cobrandLogin":"<COBRAND_LOGIN>","cobrandPassword":"<COBRAND_PASSWORD>","locale":"en_US"}}'
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - application/json
-      User-Agent:
-      - Ruby
-      Host:
-      - developer.api.yodlee.com
-      Content-Type:
-      - application/json
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Connection:
-      - keep-alive
-      Yodlee-Ref-Id:
-      - n1528419216263K4u27B000000NLlYi
-      Transfer-Encoding:
-      - chunked
-      Content-Type:
-      - application/json;charset=UTF-8
-      Date:
-      - Fri, 08 Jun 2018 00:53:36 GMT
-    body:
-      encoding: UTF-8
-      string: |-
-        {
-          "cobrandId" : 10010352,
-          "applicationId" : "3A4CAE9B71A1CCD7FF41F51006E9ED00",
-          "locale" : "en_US",
-          "session" : {
-            "cobSession" : "08062013_0:ea4681343c3da2e3880acb6c48b64105711a15ffaf5087b4d1e2e82734ba202059aa2187e5e0825fc93e475b414b97aea2a7e0228ea756da2b6f7938ac107584"
-          }
-        }
-    http_version: 
-  recorded_at: Fri, 08 Jun 2018 00:53:36 GMT
-- request:
-    method: post
     uri: https://developer.api.yodlee.com/ysl/v1/cobrand/login
     body:
       encoding: UTF-8
@@ -86,4 +41,51 @@ http_interactions:
         }
     http_version: 
   recorded_at: Thu, 14 Jun 2018 00:01:26 GMT
+- request:
+    method: post
+    uri: https://developer.api.yodlee.com/ysl/restserver/v1/cobrand/login
+    body:
+      encoding: UTF-8
+      string: '{"cobrand":{"cobrandLogin":"<COBRAND_LOGIN>","cobrandPassword":"<COBRAND_PASSWORD>","locale":"en_US"}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Host:
+      - developer.api.yodlee.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - ''
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Yodlee-Ref-Id:
+      - N1529026229323a4s27K000000NLnYu
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Fri, 15 Jun 2018 01:30:29 GMT
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "cobrandId" : 10010352,
+          "applicationId" : "3A4CAE9B71A1CCD7FF41F51006E9ED00",
+          "locale" : "en_US",
+          "session" : {
+            "cobSession" : "08062013_1:6bb625e1b05c8c9ab719c3933ba5f13c8f4d981768480cebf57916cdf935e664beedaa703b7f0c9103b154f0d0a03764c5071b5fd2265bc6ed069f7cf5d17d8a"
+          }
+        }
+    http_version: 
+  recorded_at: Fri, 15 Jun 2018 01:30:29 GMT
 recorded_with: VCR 3.0.3

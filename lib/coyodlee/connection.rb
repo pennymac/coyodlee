@@ -19,12 +19,12 @@ module Coyodlee
     def_delegators :@uri_builder, :host
 
     def authorize_user(user_session_token)
-      token = SessionToken.new user_session_token
+      token = SessionToken.new user_session_token.to_s
       @session_authorization.user_session_token = token
     end
 
     def authorize_cobrand(cobrand_session_token)
-      token = SessionToken.new cobrand_session_token
+      token = SessionToken.new cobrand_session_token.to_s
       @session_authorization.cobrand_session_token = token
     end
 
@@ -224,7 +224,9 @@ module Coyodlee
       @request_builder = request_builder
     end
 
-    def start(&block)
+    def start(user_session_token: '', cobrand_session_token: '', &block)
+      @request_builder.authorize_user user_session_token.to_s
+      @request_builder.authorize_cobrand cobrand_session_token.to_s
       Net::HTTP.start(@request_builder.host, use_ssl: true) do |http|
         yield RequestFacade.new(http: http,
                                 request_builder: @request_builder)
