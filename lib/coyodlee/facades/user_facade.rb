@@ -43,6 +43,11 @@ module Coyodlee
         @request_facade.execute(req)
       end
 
+      def details
+        req = @request_facade.build(:get, 'user')
+        @request_facade.execute(req)
+      end
+
       def logout
         headers = { 'Accept' => 'application/json' }
         req = @request_facade.build(:post, 'user/logout', headers: headers)

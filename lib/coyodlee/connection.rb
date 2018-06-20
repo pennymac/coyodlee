@@ -105,6 +105,9 @@ module Coyodlee
     # @!method unregister_user
     #   @see UserFacade#unregister
     def_delegator :@user_facade, :unregister, :unregister_user
+    # @!method user_details
+    #   @see UserFacade#details
+    def_delegator :@user_facade, :details, :user_details
 
     # @!method login_cobrand
     #   @see CobrandFacade#login
